@@ -13,8 +13,12 @@ export default function App() {
         <View style={styles.container}>
           <Banner data={BannerData} />
           {/* <GeoLocation /> */}
-          <Shalat />
-          <Cuaca />
+          <ScrollView horizontal={true}>
+            <View style={{flexDirection: 'row'}}>
+              <Shalat />
+              <Cuaca />
+            </View>
+          </ScrollView>
         </View>
       </ScrollView>
     </SafeAreaView>

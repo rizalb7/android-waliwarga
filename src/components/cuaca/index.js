@@ -1,6 +1,7 @@
-import {View, Text} from 'react-native';
+import {View, Text, Dimensions} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import CuacaTime from './CuacaTime';
+const {width, height} = Dimensions.get('window');
 
 export default function Cuaca() {
   const [dCuaca, setDCuaca] = useState([]);
@@ -47,6 +48,7 @@ export default function Cuaca() {
       style={{
         paddingVertical: 6,
         backgroundColor: 'darkgreen',
+        width: width,
       }}>
       <Text
         style={{

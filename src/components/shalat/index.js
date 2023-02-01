@@ -1,6 +1,7 @@
-import {View, Text} from 'react-native';
+import {View, Text, Dimensions} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import ShalatTime from './ShalatTime';
+const {width, height} = Dimensions.get('window');
 
 export default function Shalat() {
   const [dShalat, setDShalat] = useState([]);
@@ -28,6 +29,7 @@ export default function Shalat() {
       style={{
         paddingVertical: 6,
         backgroundColor: 'darkgreen',
+        width: width,
       }}>
       <Text
         style={{
@@ -35,6 +37,7 @@ export default function Shalat() {
           fontSize: 17,
           fontWeight: '800',
           alignSelf: 'center',
+          marginTop: 5,
         }}>
         Jadwal Shalat di Demak - {dShalat.tanggal}
       </Text>
