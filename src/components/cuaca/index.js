@@ -8,11 +8,14 @@ export default function Cuaca() {
   const [pagi, setPagi] = useState([]);
   const [siang, setSiang] = useState([]);
   const [malam, setMalam] = useState([]);
-  const date = new Date();
-  const year = '' + date.getFullYear();
-  const month = '' + date.getMonth() + 1;
-  const day = '' + date.getDate();
+  let d = new Date(),
+    month = '' + (d.getMonth() + 1),
+    day = '' + d.getDate(),
+    year = d.getFullYear();
+  if (month.length < 2) month = '0' + month;
+  if (day.length < 2) day = '0' + day;
   const dateNow = year + month + day;
+  // console.log(dateNow);
   const getDataCuaca = async () => {
     await fetch(
       `https://cuaca-gempa-rest-api.vercel.app/weather/jawa-tengah/demak`,
