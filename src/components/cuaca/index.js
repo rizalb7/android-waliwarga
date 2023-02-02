@@ -47,12 +47,12 @@ export default function Cuaca() {
     <View
       style={{
         paddingVertical: 6,
-        backgroundColor: 'darkgreen',
+        // backgroundColor: 'darkgreen',
         width: width,
       }}>
       <Text
         style={{
-          color: 'white',
+          color: 'darkgreen',
           fontSize: 17,
           fontWeight: '800',
           alignSelf: 'center',

@@ -1,33 +1,30 @@
 import React from 'react';
 import {SafeAreaView, ScrollView, StyleSheet, Text, View} from 'react-native';
-import {BannerData} from './src/components/banner/BannerData';
-import Banner from './src/components/banner/Banner';
-import GeoLocation from './src/components/geoLocation';
-import Shalat from './src/components/shalat';
-import Cuaca from './src/components/cuaca';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import Home from './src/screens/Home';
+import {Cat, CatList} from './src/screens/dsc';
 
+const Stack = createNativeStackNavigator();
 export default function App() {
   return (
-    <SafeAreaView>
-      <ScrollView>
-        <View style={styles.container}>
-          <Banner data={BannerData} />
-          {/* <GeoLocation /> */}
-          <ScrollView horizontal={true}>
-            <View style={{flexDirection: 'row'}}>
-              <Shalat />
-              <Cuaca />
-            </View>
-          </ScrollView>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen
+          name="HomeScreen"
+          component={Home}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="DscCatScreen"
+          component={Cat}
+          options={{
+            headerTitle: '',
+            headerStyle: {backgroundColor: 'mediumseagreen'},
+          }}
+        />
+        <Stack.Screen name="DscCatListScreen" component={CatList} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-});

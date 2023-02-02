@@ -31,7 +31,7 @@ export default function CuacaTime({props}) {
         style={{
           textAlign: 'center',
           alignContent: 'center',
-          color: 'white',
+          color: 'darkgreen',
           flexWrap: 'wrap',
           textDecorationLine: 'underline',
         }}>
@@ -60,7 +60,7 @@ export default function CuacaTime({props}) {
         style={{
           textAlign: 'center',
           alignContent: 'center',
-          color: 'white',
+          color: 'darkgreen',
           flexWrap: 'wrap',
           fontSize: 10,
           marginTop: -6,

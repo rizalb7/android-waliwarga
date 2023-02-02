@@ -9,7 +9,7 @@ export default function ShalatTime({props}) {
           width: 60,
           textAlign: 'center',
           alignContent: 'center',
-          color: 'white',
+          color: 'darkgreen',
           flexWrap: 'wrap',
           textDecorationLine: 'underline',
         }}>
@@ -20,7 +20,7 @@ export default function ShalatTime({props}) {
           width: 60,
           textAlign: 'center',
           alignContent: 'center',
-          color: 'white',
+          color: 'darkgreen',
           flexWrap: 'wrap',
           fontSize: 12,
         }}>
