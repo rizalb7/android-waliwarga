@@ -23,15 +23,16 @@ export default function Dsc({navigation}) {
         <Card.Title
           style={{marginTop: -15}}
           titleStyle={{
-            color: 'lightgreen',
+            color: 'white',
             fontWeight: 'bold',
-            fontSize: 18,
+            fontSize: 20,
+            marginTop: 8,
           }}
           title="Lokasi"
           right={() => (
             <Pressable onPress={() => navigation.navigate('DscCatScreen')}>
               <Text
-                style={{paddingRight: 14, color: 'white', fontWeight: 'bold'}}>
+                style={{paddingRight: 14, color: 'white', fontWeight: '600'}}>
                 Lihat Semua
               </Text>
             </Pressable>
