@@ -6,7 +6,13 @@ import {REACT_APP_DSC_URL, REACT_APP_DSC_API_URL} from '@env';
 export default function CatCard({props}) {
   return (
     <View>
-      <Pressable onPress={() => props.navigation.navigate('DscCatListScreen')}>
+      <Pressable
+        onPress={() =>
+          props.navigation.navigate('DscCatListScreen', {
+            catId: props.val.cid,
+            name: props.val.category_name,
+          })
+        }>
         <Card
           style={{
             width: 75,
