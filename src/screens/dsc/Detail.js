@@ -1,11 +1,31 @@
 import React, {useState, useEffect, useCallback} from 'react';
-import {Dimensions, Linking, ScrollView, View} from 'react-native';
+import {
+  Dimensions,
+  Image,
+  Linking,
+  RefreshControl,
+  ScrollView,
+  View,
+} from 'react-native';
 import {Avatar, Badge, Button, Card, Paragraph, Text} from 'react-native-paper';
 import {REACT_APP_DSC_URL, REACT_APP_DSC_API_URL, COL_DARK_PR} from '@env';
 import ViewMoreText from 'react-native-view-more-text';
+import axios from 'axios';
 const {width, height} = Dimensions.get('window');
 
+const wait = timeout => {
+  return new Promise(resolve => setTimeout(resolve, timeout));
+};
+
 export default function Detail({route}) {
+  const [refreshing, setRefreshing] = useState(false);
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    wait(2000).then(() => {
+      getGallery();
+      setRefreshing(false);
+    });
+  }, []);
   const data = route.params.data;
   const renderViewMore = onPress => {
     return (
@@ -44,8 +64,25 @@ export default function Detail({route}) {
     ',' +
     data.place_map_longitude;
 
+  const [gallery, setGallery] = useState([]);
+  const getGallery = async () => {
+    await axios
+      .get(`${REACT_APP_DSC_API_URL}/places/gallery/${data.p_id}`)
+      .then(res => {
+        setGallery(res.data.data);
+      })
+      .catch(error => console.log(error));
+  };
+
+  useEffect(() => {
+    getGallery();
+  }, []);
+
   return (
-    <ScrollView>
+    <ScrollView
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }>
       <Card>
         <Card.Cover
           style={{width, height: 250}}
@@ -225,6 +262,35 @@ export default function Detail({route}) {
                     </Button>
                   )}
                 </View>
+              </Card.Content>
+            </Card>
+          ) : (
+            <View></View>
+          )}
+          {gallery.length ? (
+            <Card style={{marginTop: 10, backgroundColor: 'azure'}}>
+              <Card.Title titleVariant="titleMedium" title="Gallery" />
+              <Card.Content style={{marginTop: -10}}>
+                <ScrollView
+                  horizontal={true}
+                  showsHorizontalScrollIndicator={false}>
+                  {gallery.map((val, index) => (
+                    <Card.Cover
+                      key={index}
+                      style={{
+                        width: width - 100,
+                        height: 200,
+                        marginHorizontal: 8,
+                      }}
+                      source={{
+                        uri:
+                          REACT_APP_DSC_API_URL +
+                          '/images/gallery/' +
+                          val.image_name,
+                      }}
+                    />
+                  ))}
+                </ScrollView>
               </Card.Content>
             </Card>
           ) : (
