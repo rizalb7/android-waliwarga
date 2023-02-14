@@ -13,6 +13,7 @@ import GeoLocation from '../components/geoLocation';
 import Shalat from '../components/shalat';
 import Cuaca from '../components/cuaca';
 import Dsc from '../components/dsc';
+import Berita from '../components/berita';
 
 export default function Home({navigation}) {
   return (
@@ -28,6 +29,7 @@ export default function Home({navigation}) {
             </View>
           </ScrollView>
           <Dsc navigation={navigation} />
+          <Berita navigation={navigation} />
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -38,5 +40,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    marginBottom: 20,
   },
 });

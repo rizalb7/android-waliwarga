@@ -6,6 +6,8 @@ import Home from './src/screens/Home';
 import {Cat, CatList} from './src/screens/dsc';
 import {COL_DARK_PR, COL_DARK_SC} from '@env';
 import Detail from './src/screens/dsc/Detail';
+import BeritaList from './src/components/berita/BeritaList';
+import BeritaDetail from './src/components/berita/BeritaDetail';
 
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -39,6 +41,26 @@ export default function App() {
         <Stack.Screen
           name="DscDetailScreen"
           component={Detail}
+          options={({route}) => ({
+            title: route.params.name,
+            headerStyle: {backgroundColor: COL_DARK_SC},
+            headerTitleAlign: 'left',
+            headerTintColor: 'white',
+          })}
+        />
+        <Stack.Screen
+          name="BeritaListScreen"
+          component={BeritaList}
+          options={({route}) => ({
+            title: route.params.name,
+            headerStyle: {backgroundColor: COL_DARK_SC},
+            headerTitleAlign: 'left',
+            headerTintColor: 'white',
+          })}
+        />
+        <Stack.Screen
+          name="BeritaDetailScreen"
+          component={BeritaDetail}
           options={({route}) => ({
             title: route.params.name,
             headerStyle: {backgroundColor: COL_DARK_SC},
