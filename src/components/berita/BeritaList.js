@@ -18,6 +18,7 @@ import {
 } from 'react-native-paper';
 import {COL_DARK_PR, REACT_APP_DEMAKKAB_API_URL} from '@env';
 import axios from 'axios';
+import DatePicker from 'react-native-date-picker';
 import RenderFooter from '../../components/layouts/RenderFooter';
 const {width, height} = Dimensions.get('window');
 
@@ -31,6 +32,8 @@ export default function BeritaList({navigation}) {
     setRefreshing(true);
     wait(2000).then(() => {
       setIsListEnd(false);
+      setIsDate(false);
+      setSelectedDate(new Date());
       setSearchTerm('');
       getBerita();
       setRefreshing(false);
@@ -43,6 +46,9 @@ export default function BeritaList({navigation}) {
   const [filteredBerita, setFilteredBerita] = useState([]);
   const [page, setPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [isDatePickerVisible, setIsDatePickerVisible] = useState(false);
+  const [isDate, setIsDate] = useState(false);
 
   const getBerita = async () => {
     if (!isListEnd) {
@@ -65,10 +71,17 @@ export default function BeritaList({navigation}) {
     setFilteredBerita(
       berita.filter(post => {
         const postDate = new Date(post.updated_at);
-        return post.judul.toLowerCase().includes(searchTerm.toLowerCase());
+        // console.log(selectedDate.toLocaleDateString());
+        if (!isDate) {
+          return post.judul.toLowerCase().includes(searchTerm.toLowerCase());
+        } else {
+          return postDate
+            .toLocaleDateString()
+            .includes(selectedDate.toLocaleDateString());
+        }
       }),
     );
-  }, [searchTerm, berita]);
+  }, [searchTerm, selectedDate, berita]);
 
   const handleLoadMore = () => {
     setIsListEnd(true);
@@ -125,15 +138,46 @@ export default function BeritaList({navigation}) {
 
   return (
     <View style={{height: height, backgroundColor: COL_DARK_PR}}>
-      <TextInput
-        label="Pencarian"
-        value={searchTerm}
-        onChangeText={setSearchTerm}
-        style={{
-          backgroundColor: 'azure',
-          marginBottom: 5,
-          borderTopRightRadius: 0,
-          borderTopStartRadius: 0,
+      <View style={{flexDirection: 'row'}}>
+        <TextInput
+          label="Pencarian"
+          value={searchTerm}
+          onChangeText={text => {
+            setSearchTerm(text);
+            setIsDate(false);
+          }}
+          style={{
+            width: '70%',
+            backgroundColor: 'azure',
+            marginBottom: 5,
+            borderTopRightRadius: 0,
+            borderTopStartRadius: 0,
+          }}
+        />
+        <TouchableOpacity
+          style={{
+            backgroundColor: 'azure',
+            width: '30%',
+            height: 55,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+          onPress={() => setIsDatePickerVisible(true)}>
+          <Text style={{fontSize: 15, fontWeight: '400'}}>Pilih Tanggal</Text>
+        </TouchableOpacity>
+      </View>
+      <DatePicker
+        modal
+        open={isDatePickerVisible}
+        date={selectedDate}
+        mode="date"
+        onConfirm={date => {
+          setIsDate(true);
+          setIsDatePickerVisible(false);
+          setSelectedDate(date);
+        }}
+        onCancel={() => {
+          setIsDatePickerVisible(false);
         }}
       />
       {loading ? (
