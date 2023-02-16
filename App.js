@@ -8,6 +8,8 @@ import {COL_DARK_PR, COL_DARK_SC} from '@env';
 import Detail from './src/screens/dsc/Detail';
 import BeritaList from './src/components/berita/BeritaList';
 import BeritaDetail from './src/components/berita/BeritaDetail';
+import LayananList from './src/layanan_publik/LayananList';
+import LayananShow from './src/layanan_publik/LayananShow';
 
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -61,6 +63,26 @@ export default function App() {
         <Stack.Screen
           name="BeritaDetailScreen"
           component={BeritaDetail}
+          options={({route}) => ({
+            title: route.params.name,
+            headerStyle: {backgroundColor: COL_DARK_SC},
+            headerTitleAlign: 'left',
+            headerTintColor: 'white',
+          })}
+        />
+        <Stack.Screen
+          name="LayananListScreen"
+          component={LayananList}
+          options={({route}) => ({
+            title: 'Layanan Publik',
+            headerStyle: {backgroundColor: COL_DARK_SC},
+            headerTitleAlign: 'left',
+            headerTintColor: 'white',
+          })}
+        />
+        <Stack.Screen
+          name="LayananShowScreen"
+          component={LayananShow}
           options={({route}) => ({
             title: route.params.name,
             headerStyle: {backgroundColor: COL_DARK_SC},

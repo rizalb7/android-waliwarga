@@ -14,6 +14,7 @@ import Shalat from '../components/shalat';
 import Cuaca from '../components/cuaca';
 import Dsc from '../components/dsc';
 import Berita from '../components/berita';
+import LayananPublik from '../layanan_publik';
 
 export default function Home({navigation}) {
   return (
@@ -30,6 +31,7 @@ export default function Home({navigation}) {
           </ScrollView>
           <Dsc navigation={navigation} />
           <Berita navigation={navigation} />
+          <LayananPublik navigation={navigation} />
         </View>
       </ScrollView>
     </SafeAreaView>
